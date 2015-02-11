@@ -1,0 +1,28 @@
+{
+  "name": "bother",
+  "version": "1.0.0",
+  "description": "Availability check for announced services",
+  "main": "bother-app.js",
+  "scripts": {
+    "test": "mocha --reporter spec --recursive --timeout 20s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opentable/bother.git"
+  },
+  "keywords": [
+    "bother",
+    "check",
+    "availability",
+    "discovery"
+  ],
+  "author": "Bewildered Gibbons",
+  "bugs": {
+    "url": "https://github.com/opentable/bother/issues"
+  },
+  "homepage": "https://github.com/opentable/bother",
+  "dependencies": {
+    "ot-discovery": "^0.2.2",
+    "request": "^2.53.0"
+  }
+}
