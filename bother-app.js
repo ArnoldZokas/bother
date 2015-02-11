@@ -31,7 +31,7 @@ disco.connect(function(err, h, s){
 
     while(counter < times) {
         var url = disco.find(service);
-        request(url, function(error, response){
+        request(url + '/service-status', function(error, response){
             console.log('I\'m hitting ' + url + ' which is returning a ' + response.statusCode + ' status code.');
         });
         counter++;
