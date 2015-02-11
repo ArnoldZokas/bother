@@ -19,6 +19,7 @@ var service = program.service || 'restaurant';
 var times = program.times || 100;
 
 disco.connect(function(err, h, s){
+
     if(err){
         throw err;
     }
@@ -27,13 +28,13 @@ disco.connect(function(err, h, s){
     servers = s;
     var counter = 0;
 
-    console.log(disco.findAll(service));
-
     while(counter < times) {
-        var url = disco.find(service);
-        request(url + '/service-status', function(error, response){
-            console.log('I\'m hitting ' + url + ' which is returning a ' + response.statusCode + ' status code.');
-        });
+        setTimeout(function(){
+            var url = disco.find(service);
+            request(url + '/service-status', function(error, response){
+                console.log('I\'m hitting ' + url + ' which is returning a ' + response.statusCode + ' status code.');
+            });
+        }, 1000);
         counter++;
     }
 });
