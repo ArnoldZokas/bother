@@ -1,6 +1,6 @@
 {
   "name": "bother",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Availability check for announced services",
   "main": "bother-app.js",
   "scripts": {
@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/opentable/bother",
   "dependencies": {
-    "commander": "^2.6.0",
+    "commander": "2.6.0",
+    "infinite-loop": "0.2.2",
     "ot-discovery": "0.2.2",
     "request": "2.53.0"
   }
