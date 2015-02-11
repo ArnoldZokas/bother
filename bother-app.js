@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 'use strict';
 
-var discovery = require('ot-discovery');
-var request = require('request');
-var program = require('commander');
-var pkg = require('./package.json');
-var disco = new discovery('discovery-pp-sf.otenv.com', { logger: { log: function (log) {}, error: function (error) {}}});
-var host;
-var servers;
+var bother = require('./src/bother'),
+    discovery = require('ot-discovery'),
+    disco = new discovery('discovery-pp-sf.otenv.com', { logger: { log: function (log) {}, error: function (error) {}}}),
+    InfiniteLoop = require('infinite-loop'),
+    il = new InfiniteLoop(),
+    program = require('commander'),
+    pkg = require('./package.json');
 
 program
     .version(pkg.version)
@@ -18,26 +18,11 @@ program
 var service = program.service || 'restaurant';
 var times = program.times || 100;
 
-disco.connect(function(err, h, s){
+disco.connect(function(err){
 
     if(err){
         throw err;
     }
 
-    host = h;
-    servers = s;
-    var counter = 0;
-
-    while(counter < times) {
-        setTimeout(function(){
-            var url = disco.find(service);
-            request(url + '/service-status', function(error, response){
-                console.log('I\'m hitting ' + url + ' which is returning a ' + response.statusCode + ' status code.');
-            });
-        }, 1000);
-        counter++;
-    }
+    il.add(bother.go, disco, service).run();
 });
-
-
-
