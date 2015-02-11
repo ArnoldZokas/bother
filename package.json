@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha --reporter spec --recursive --timeout 20s"
   },
+  "bin": {
+    "bother": "bother-app.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/opentable/bother.git"
@@ -22,7 +25,8 @@
   },
   "homepage": "https://github.com/opentable/bother",
   "dependencies": {
-    "ot-discovery": "^0.2.2",
-    "request": "^2.53.0"
+    "commander": "^2.6.0",
+    "ot-discovery": "0.2.2",
+    "request": "2.53.0"
   }
 }
