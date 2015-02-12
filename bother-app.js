@@ -22,11 +22,12 @@ disco.connect(function(err){
         throw err;
     }
 
-    var bothering = setInterval(function() {bother.go(disco, service)}, 10);
+    var bothering = setInterval(function() {bother.start(disco, service)}, 10);
 
     if(time){
         setTimeout(function(){
             clearInterval(bothering);
+            process.exit(0);
         }, time * 1000);
     }
 });
