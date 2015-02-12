@@ -4,19 +4,17 @@
 var bother = require('./src/bother'),
     discovery = require('ot-discovery'),
     disco = new discovery('discovery-pp-sf.otenv.com', { logger: { log: function (log) {}, error: function (error) {}}}),
-    InfiniteLoop = require('infinite-loop'),
-    il = new InfiniteLoop(),
     program = require('commander'),
     pkg = require('./package.json');
 
 program
     .version(pkg.version)
     .option('-s, --service <service>', 'Name of the service to bother')
-    .option('-t, --times <times>', 'Number of times the service needs to be bothered')
+    .option('-t, --time <time>', 'Number of seconds for which you want to bother the service')
     .parse(process.argv);
 
 var service = program.service || 'restaurant';
-var times = program.times || 100;
+var time = program.time;
 
 disco.connect(function(err){
 
@@ -24,5 +22,12 @@ disco.connect(function(err){
         throw err;
     }
 
-    il.add(bother.go, disco, service).run();
+    var bothering = setInterval(function() {bother.start(disco, service)}, 10);
+
+    if(time){
+        setTimeout(function(){
+            clearInterval(bothering);
+            process.exit(0);
+        }, time * 1000);
+    }
 });
