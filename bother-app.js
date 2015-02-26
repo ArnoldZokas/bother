@@ -3,7 +3,6 @@
 
 var bother = require('./src/bother'),
     discovery = require('ot-discovery'),
-    disco = new discovery('discovery-pp-sf.otenv.com', { logger: { log: function (log) {}, error: function (error) {}}}),
     program = require('commander'),
     pkg = require('./package.json');
 
@@ -13,8 +12,15 @@ program
     .option('-t, --time <time>', 'Number of seconds for which you want to bother the service')
     .parse(process.argv);
 
+var discoServer = program.args;
 var service = program.service || 'restaurant';
 var time = program.time;
+var disco = new discovery(discoServer, {
+        logger: {
+            log: function (log) {},
+            error: function (error) {}
+        }
+    });
 
 disco.connect(function(err){
 
